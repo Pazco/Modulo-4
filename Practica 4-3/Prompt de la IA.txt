@@ -1,0 +1,37 @@
+Ejercicio 1: El Dron de Carga (Control de Altura y Modificadores)
+El concepto:
+Vas a convertir vuestro cubo en un dron volador. A diferencia del personaje anterior que siempre estaba pegado al suelo, este dron puede ganar o perder altitud, y tiene un botón de "sprint" que consume mucha batería (simulado haciendo que vaya más rápido).
+
+Cómo leer el Input clásico (dentro de tu método Update):
+
+Movimiento en el plano: Usa Input.GetAxis("Horizontal") y Input.GetAxis("Vertical"). Unity ya tiene configurado esto por defecto para las flechas y las teclas WASD.
+
+Cambiar Altura: Usa Input.GetKey(KeyCode.Space) para comprobar si se pulsa espacio (subir) y Input.GetKey(KeyCode.LeftControl) o KeyCode.C para bajar.
+
+Turbo: Usa Input.GetKey(KeyCode.LeftShift) para saber si el jugador está manteniendo pulsado el Shift izquierdo.
+
+El reto con el Transform:
+
+En el script, crea un vector de movimiento usando los ejes Horizontal y Vertical, y aplícalo con transform.Translate.
+
+Crea un if/else para la altura. Si GetKey de Espacio es verdadero, el dron debe subir (sumar al eje Y del transform.position); si el de Ctrl es verdadero, debe bajar. Extra: Ponle un límite a la variable Y usando Mathf.Clamp antes de asignarla a la posición, para que no baje del suelo (Y=0) ni suba al infinito (ej. Y=10).
+
+Haz otro if/else para el Turbo. Si GetKey del Shift izquierdo es verdadero, la velocidad debe ser el doble. Si es falso (en el else), la velocidad vuelve a la normal.
+
+Ejercicio 2: El Centinela (Modo "Twin-Stick" con Ratón y Teclado)
+El concepto:
+Vamos a separar completamente el movimiento de la rotación. El cubo se moverá con el teclado por el mundo, pero siempre mirará hacia donde le indique el ratón de izquierda a derecha. (Nota: deja la cámara fija apuntando desde arriba en diagonal hacia el cubo, sin que sea hija del cubo).
+
+Cómo leer el Input clásico (dentro de tu método Update):
+
+Desplazamiento: Vuelve a usar Input.GetAxis("Horizontal") y Input.GetAxis("Vertical").
+
+Giro del Ratón: Usa Input.GetAxis("Mouse X"). Esto te dirá exactamente cuánto se está moviendo el ratón de izquierda a derecha en cada fotograma.
+
+El reto con el Transform:
+
+Movimiento absoluto: Aplica tu movimiento de WASD al transform.Translate, pero asegúrate de añadir el parámetro Space.World al final de la función: transform.Translate(direccion * velocidad * Time.deltaTime, Space.World). ¿Por qué? Porque si no lo haces, al girar el cubo, la tecla "W" lo moverá hacia donde esté mirando, ¡y queremos que la W siempre te mueva hacia "arriba" en la pantalla!
+
+Rotación con el ratón: Lee el valor de "Mouse X". Usa ese valor multiplicado por una variable de "velocidad de giro" para aplicar un transform.Rotate únicamente en el eje Y. Si mueves el ratón a la derecha, el cubo girará sobre sí mismo hacia la derecha.
+
+💡 El consejo de oro: Recuerda siempre multiplicar tus traslaciones y rotaciones por Time.deltaTime. Esto garantiza que tu dron o centinela se mueva a la misma velocidad sin importar si tu ordenador va a 30 o a 144 fotogramas por segundo.

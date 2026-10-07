@@ -1,0 +1,24 @@
+En este Simulador de Ataque Aéreo de Palomas, controlas a un escuadrón de aves tácticas que aterrorizan a los transeúntes de un parque. Esta arquitectura conecta al atacante, la víctima y la "munición" de forma sencilla.
+
+PalomaTactica (El Jugador)
+El ave que controlas para sembrar el pánico desde el cielo.
+
+public string rangoMilitar: El título de tu ave (ej. "Comandante Plumífero").
+
+private float nivelDeHambre: Disminuye con el tiempo. Si llega a cero, la paloma debe aterrizar a buscar migas y pierde el vuelo.
+
+public HumanoDespistado objetivoActual: [Referencia] El transeúnte específico al que la paloma ha fijado en su radar para seguir desde las alturas.
+
+HumanoDespistado (El NPC)
+Las personas que pasean tranquilamente por la plaza y sufren las consecuencias.
+
+public bool llevaTrajeLimpio: Si es verdadero, el humano otorga el doble de puntos al ser impactado.
+
+private int nivelDePaciencia: Baja con cada ataque. Si llega a cero, el humano huye del parque.
+
+ProyectilBiologico (El "Arma")
+La "sorpresa" que la paloma deja caer desde el cielo.
+
+public float radioDeImpacto: El área que cubre la mancha al chocar contra el suelo o un NPC.
+
+private HumanoDespistado victimaImpactada: [Referencia] El humano que ha tenido la mala suerte de recibir el impacto directo, guardado aquí para poder restarle puntos de paciencia.
